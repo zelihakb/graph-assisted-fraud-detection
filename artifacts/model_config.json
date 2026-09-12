@@ -1,0 +1,25 @@
+{
+    "model": "RandomForestClassifier",
+    "version": "v1",
+    "selected_threshold": 0.31,
+    "threshold_metric": "validation_f1",
+    "test_cutoff": 356.0,
+    "validation_cutoff": 302.0,
+    "features": [
+        "tx_type",
+        "amount",
+        "log_amount",
+        "dst_balance_before",
+        "receiver_prior_tx_count",
+        "receiver_prior_total_amount",
+        "receiver_prior_avg_amount",
+        "receiver_prior_7d_tx_count",
+        "receiver_prior_7d_total_amount"
+    ],
+    "model_parameters": {
+        "n_estimators": 200,
+        "class_weight": "balanced_subsample",
+        "random_state": 42
+    },
+    "notes": "Sender-balance-derived features excluded after ablation."
+}

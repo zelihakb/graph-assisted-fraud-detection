@@ -1,0 +1,31 @@
+# Jupyter
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Raw and generated datasets
+data/*.csv
+data/*.zip
+
+# Large / local model artifacts
+artifacts/*.joblib
+artifacts/final_test_predictions.csv
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+# Legacy development files
+legacy/
