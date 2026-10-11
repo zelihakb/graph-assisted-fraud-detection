@@ -51,3 +51,23 @@ Target proportions: 70% / 15% / 15%.
 The boundaries are frozen before examining fraud distribution.
 
 Threshold selection objective: maximize validation F1.
+
+## Natural-Prevalence Split Diagnostics
+
+Fraud labels were inspected after freezing the temporal boundaries.
+
+| Partition  | Transactions | Fraud | Fraud Rate |
+| ---------- | -----------: | ----: | ---------: |
+| Train      |    1,938,484 | 3,633 |    0.1874% |
+| Validation |      415,628 |   560 |    0.1347% |
+| Test       |      416,297 | 4,020 |    0.9657% |
+
+Total: 2,770,409 transactions and 8,213 fraud cases.
+
+Observation:
+Fraud prevalence changes substantially over time.
+Test prevalence is approximately 7.17 times validation prevalence.
+
+The predefined split boundaries remain unchanged.
+This distribution shift must be considered when interpreting
+threshold selection and final evaluation.
