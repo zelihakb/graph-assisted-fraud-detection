@@ -71,3 +71,13 @@ Test prevalence is approximately 7.17 times validation prevalence.
 The predefined split boundaries remain unchanged.
 This distribution shift must be considered when interpreting
 threshold selection and final evaluation.
+
+## Transaction ID Consistency
+
+Transaction IDs are derived from original PaySim CSV row positions
+before filtering or sampling.
+
+IDs must remain stable across full-history feature generation,
+data partitioning, and model training.
+
+Sampling must never regenerate transaction IDs.
