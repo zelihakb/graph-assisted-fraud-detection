@@ -1,5 +1,9 @@
 import unittest
 import pandas as pd
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+from src.data.full_history import iter_scoped_paysim
 
 from src.data.paysim import prepare_scoped_paysim
 
@@ -53,7 +57,28 @@ class TestPaySimPreparation(unittest.TestCase):
 
         # Fraud etiketlerinin doğru işlemlerle eşleştiğini kontrol ettik.
         self.assertEqual(result["label_fraud"].tolist(), [0, 1])
+    def test_chunked_loading_preserves_ids(self):
+        # Aynı ham veriyi küçük CSV parçalarıyla işlemeyi doğruladık.
+        with TemporaryDirectory() as temp_dir:
+            csv_path = Path(temp_dir) / "sample.csv"
+            self.raw.to_csv(csv_path, index=False)
 
+            chunks = list(
+                iter_scoped_paysim(csv_path, chunk_size=2)
+            )
+
+        result = pd.concat(chunks, ignore_index=True)
+
+        # Filtreleme sırasında orijinal satır kimliklerini koruduk.
+        self.assertEqual(
+            result["tx_id"].tolist(),
+            ["raw_2", "raw_3"]
+        )
+
+        self.assertEqual(
+            result["tx_type"].tolist(),
+            ["CASH_OUT", "TRANSFER"]
+        )
 
 if __name__ == "__main__":
     unittest.main()
