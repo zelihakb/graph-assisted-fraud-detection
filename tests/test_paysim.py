@@ -41,6 +41,19 @@ class TestPaySimPreparation(unittest.TestCase):
         with self.assertRaises(ValueError):
             prepare_scoped_paysim(incomplete)
 
+    def test_canonical_values_preserved(self):
+        # Dönüşüm sırasında işlem tutarlarını ve bakiyeleri koruduğumuzu doğruladık.
+        result = prepare_scoped_paysim(self.raw)
+
+        self.assertEqual(result["amount"].tolist(), [200, 300])
+        self.assertEqual(result["src_balance_before"].tolist(), [500, 500])
+        self.assertEqual(result["src_balance_after"].tolist(), [300, 200])
+        self.assertEqual(result["dst_balance_before"].tolist(), [0, 0])
+        self.assertEqual(result["dst_balance_after"].tolist(), [200, 300])
+
+        # Fraud etiketlerinin doğru işlemlerle eşleştiğini kontrol ettik.
+        self.assertEqual(result["label_fraud"].tolist(), [0, 1])
+
 
 if __name__ == "__main__":
     unittest.main()
