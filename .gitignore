@@ -29,3 +29,9 @@ Thumbs.db
 .idea/
 # Legacy development files
 legacy/
+
+.env
+.env.*
+!.env.example
+
+/.local/
